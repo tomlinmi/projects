@@ -1,0 +1,13 @@
+//function for price look up, return the price
+
+function priceLookup (items, itemNameToMatch){
+  
+  for(let i=0; i<items.length; i++){
+    
+    if (items[i].itemName===itemNameToMatch){
+      
+       return items[i].price  
+    }
+          
+  }
+}

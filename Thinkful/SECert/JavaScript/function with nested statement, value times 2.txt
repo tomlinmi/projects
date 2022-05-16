@@ -1,0 +1,26 @@
+//function that takes two auguments
+
+function candyOrderQuantity(inventory, candyNameToMatch){
+  
+  let orderAmt = 0
+  
+  for(let i=0; i<inventory.length; i++){
+    
+ 
+    //find the candy in the array that matches the name passed in
+    
+    if(inventory[i].candy===candyNameToMatch){
+      
+      //condition to order
+    if (inventory[i].inStock < inventory[i].weeklyAverage) {
+      
+         orderAmt = (2 * (inventory[i].weeklyAverage))  
+       //return the amount of candy to order
+       return orderAmt
+          
+}}
+
+    }
+ return 0
+  }
+  

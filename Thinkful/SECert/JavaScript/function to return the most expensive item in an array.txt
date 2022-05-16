@@ -1,0 +1,17 @@
+//function for the name of the most expensive item
+
+function mostExpensiveItemName(items){
+ let result
+  let expensivePrice =0
+  
+for (let i=0; i<items.length; i++){
+ 
+  if (items[i].price > expensivePrice)  {
+    
+    expensivePrice = (items[i].price) 
+    result = (items[i].itemName)
+  } 
+  
+}
+return result
+}

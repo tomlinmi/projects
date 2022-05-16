@@ -1,0 +1,56 @@
+//SORT() changes the actual array or object, sorting accending or decending
+//sorting numbers
+
+//array.sort((a,b) => a-b;
+//console.log(arrays);
+//sets value to the compare function to return an output. For Accending order call back is a-b.  For Decending order, call back is b-a
+
+//SORT Strings, letters are arranged with unicode where capital letter is before lower. to fix, update compare function
+
+Accending
+arrays.sort((arrayA, arrayB)=>
+	arrayA.toLowerCase() < arrayB.toLowerCase()? -1:1);
+	
+	console.log(arrays)
+Decending
+arrays.sort((arrayA, arrayB)=>
+	arrayA.toLowerCase() > arrayB.toLowerCase()? -1:1);
+	
+	console.log(arrays)
+	
+//	Array of Objects, to sort the object target the keys
+
+//Each parameter, on the first iteration, represents the first and second element of the array. 
+The ratings are then compared for each park
+
+const parks = [	{name: "Zion", rating 4.2}
+				{name: "Grand Canyon", rating 5}
+				{name: "Arches", rating 4.5}
+				{name: "Badlands", rating4.1}
+				];
+parks.sort((parkA, parkB)=>
+(parkA.name > parkB.name ? 1:-1));
+console.log(parks);
+
+//2 ways to sort #s in an array of objects
+
+const parks = [
+  { name: "Biscayne", rating: 4.2 },
+  { name: "Grand Canyon", rating: 5 },
+  { name: "Gateway Arch", rating: 4.5 },
+  { name: "Indiana Dunes", rating: 4.1 },
+];
+
+parks.sort((parkA, parkB) => (parkA.rating > parkB.rating ? 1 : -1));
+console.log(parks);
+
+or
+parks.sort((parkA, parkB) => parkA.rating - parkB.rating);
+console.log(parks);
+
+// function to sortByLength that takes in an array of strings, and returns the strings, sorted by length, shortest first.
+
+function sortByLength(strings) {
+strings.sort((stringA, stringB)=>(stringA.length >stringB.length ? 1:-1));
+  return strings
+}

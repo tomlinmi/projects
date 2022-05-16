@@ -1,0 +1,21 @@
+/**
+ * Write a function called `campsiteCount`
+ * */
+//given the campsite array, return the total nuber of campsites in the array
+
+function campsiteCount(campgrounds){
+  //start counter at 0
+  let count = 0
+  //loop through campsites
+  
+  for (let i=0; i<campgrounds.length; i++){
+    //for each campground, add one to the counter
+    
+    count = count + 1
+  }
+  //after the loop return the current count
+  return count;
+}
+
+// Do not make changes below this line
+module.exports = campsiteCount;

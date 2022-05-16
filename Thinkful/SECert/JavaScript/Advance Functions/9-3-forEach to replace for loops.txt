@@ -1,0 +1,45 @@
+FOR EACH - accepts a function as an agument, the function tha tyou pass to the method is referred to as the callback function. A call back function is  a function that is 
+//passed into another function as an augument.
+
+
+
+let parks = [
+  { name: "Biscayne", rating: 4.2 },
+  { name: "Grand Canyon", rating: 5 },
+  { name: "Gateway Arch", rating: 4.5 },
+  { name: "Indiana Dunes", rating: 4.1 },
+];
+How it works: provide forEach() with a callback function, internally, forEach() executes that callback funciton once for each element of the array.
+
+parks.forEach(logPark);
+// Biscayne
+// Grand Canyon
+// Gateway Arch
+// Indiana Dunes
+
+Same outcome using anonyomous function
+parks.forEach((park) => console.log(park.name));
+// Biscayne
+// Grand Canyon
+// Gateway Arch
+// Indiana Dunes
+in above you aren't passing a named function to forEach(); rather you are defining an anonymous function in the invocation of forEach().
+
+Customizing forEach()
+just like any function you can call the augument anything you want. 
+
+parks.forEach((element) => {
+  console.log(element.name);
+});
+// Biscayne
+// Grand Canyon
+// Gateway Arch
+// Indiana Dunes
+
+parks.forEach((park, index, collection) => {
+  console.log(`(${index + 1}/${collection.length}) ${park.name}`);
+});
+// (1/4) Biscayne
+// (2/4) Grand Canyon
+// (3/4) Gateway Arch
+// (4/4) Indiana Dunes

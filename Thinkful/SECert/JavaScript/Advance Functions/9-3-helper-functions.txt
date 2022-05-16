@@ -1,0 +1,15 @@
+Helper Functions
+
+Higher order function is a function that accepts a function as one of its argument or returns a funcitopn
+
+Example
+const discountedPrice = (discount) => {
+	return (price) => price * discount;}
+	
+	or since it returns a single value it can be written like this.
+	
+const discountedPrice = (discount) => price => price * discount;}
+	
+The function above returns a function that accepts a single parameter <price> and multiplies the price by the <discount>.	this function calculates the discount.
+const tenPercentDiscount = discountedPrice(0.9);
+const finalPriceBed = tenPercentDiscount(200);

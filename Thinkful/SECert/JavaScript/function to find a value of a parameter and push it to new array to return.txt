@@ -1,0 +1,28 @@
+/**
+ * Write a function named `availableCampsites`
+ */
+//return the campsite #s that are currently unreserved campsites where isReserved === false
+
+function availableCampsites(campgrounds){
+  //declare new array to store available campgrounds
+  let available = new Array();
+  //loop through the campsites
+  for (let i=0; i<campgrounds.length; i++){
+    
+    if(campgrounds[i].isReserved===false){
+      //push value of number parameter in the campgrounds array to new array
+      available.push (campgrounds[i].number)
+       
+    }
+      
+    }
+	
+	//return the array after the loop completes
+  return available
+  }
+
+
+
+
+// Do not make changes below this line
+module.exports = availableCampsites;

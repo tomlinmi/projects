@@ -1,0 +1,35 @@
+//function of all the candies to order
+
+/*function allCandyOrders(inventory){   
+  
+  //return an order object the keys should be the names of th ecandiels and values of amount to be ordered
+  
+  //created new array for output values
+  
+  let outputInventory = new Array ()
+  
+  let orderAmt = 0
+
+  for(let i=0; i<inventory.length; i++){
+    
+    //if(inventory[i]===inventory){
+      
+      //condition to order
+    if (inventory[i].inStock < inventory[i].weeklyAverage) {
+      
+         orderAmt = (2 * (inventory[i].weeklyAverage))  
+       //return the amount of candy to order
+      
+      return orderAmt
+        }  
+   else {
+     
+      return 0
+   }   
+
+
+  outputInventory.push(inventory[i].candy, orderAmt)    
+        return outputInventory()    
+  } 
+}
+*/

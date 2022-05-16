@@ -1,0 +1,18 @@
+function findMyCampsites(campgrounds, viewToMatch, sizeToMatch){ 
+//new array to store filtered values 
+let availSitesForMe = new Array () 
+let statement = "Sorry, no campsites with that view are available to host your party" 
+for (let i=0; i<campgrounds.length; i++){ 
+// 3 conditions nested 
+if(campgrounds[i].isReserved === false){ 
+if(campgrounds[i].view ===viewToMatch){ 
+if (campgrounds[i].partySize>=sizeToMatch){ 
+
+//if all 3 conditions are true push to new array 
+
+availSitesForMe.push(campgrounds[i].number) 
+} } } } 
+
+
+if (availSitesForMe.length===0) 
+{ return statement ; } return availSitesForMe }

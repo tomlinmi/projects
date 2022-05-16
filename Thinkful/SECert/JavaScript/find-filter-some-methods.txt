@@ -1,0 +1,96 @@
+const parks = [
+  { name: "Biscayne", rating: 4.2 },
+  { name: "Grand Canyon", rating: 5 },
+  { name: "Gateway Arch", rating: 4.5 },
+  { name: "Indiana Dunes", rating: 4.1 },
+];
+
+//FIND()find method to find an item in an array
+//It returns the first item that matches the condition, 
+//even if more than one item matches. 
+//If there is no match, find() returns undefined.
+
+let found = parks.find((park) => park.name === "Biscayne");
+console.log(found); //> { name: "Biscayne", rating: 4.2 }
+
+//User find method to find park with rating of 4.1 
+
+let found = parks.find((park) => park.rating == 4.1);
+console.log(found)
+
+//FILTER() build up a new list of items that meet a particular condition
+//the comparison that was done in the body of the loop has been refactored into a callback function.
+//The filter() method operates on an array of items and 
+//returns a new array of items that match the criterion.
+
+let result = parks.filter((park) => park.rating >= 4.5);
+console.log(result); // [ { name: "Grand Canyon", rating: 5 }, { name: "Gateway Arch", rating: 4.5 } ]
+
+
+//MAP() - Each item in the original array maps to an item in the new array.
+//the code adds the park.name for each park to the new array.
+
+const result = parks.map((park) => park.name);
+console.log(result); // [ "Biscayne", "Grand Canyon", "Gateway Arch", "Indiana Dunes" ]
+
+//returns an array of strings, where each string is the name of the park next to its rating.
+
+const result = parks.map((park) => `${park.name}: ${park.rating}`);
+console.log(result); // ["Biscayne: 4.2", "Grand Canyon: 5", "Gateway Arch: 4.5", "Indiana Dunes: 4.1"];
+
+//SOME() - check if some condition is met in your array. The following code checks whether or not any of the parks have a rating of greater than 4.
+//method accepts a callback function (park.rating >4) that implements a comparison that is executed for each item in the array
+//If the callback function returns true for any item in the array, then the entire some() method returns true otherwise it returns false
+
+const result = parks.some((park) => park.rating > 4);
+console.log(result); // true
+
+//use the some() function to write code that returns whether or not the "Grand Arches" park is included in the array.
+
+const result = parks.some((park) => park.name > "Grand Arches");
+console.log(result); // true
+
+//EvERY()check whether every item in an array matches some condition
+
+const result = parks.every((park) => park.rating > 4);
+console.log(result); // true
+
+//use the every() function to write code that returns whether or not every park has a rating between 4.2 and 4.6.
+const result = parks.every((park) => (park.rating >4.2 && park.rating <4.6));
+console.log(result); // false
+
+//ITERATION over objects
+//Another way that you could store the parks data is with the following object
+
+let parks = {
+  "Biscayne": 4.2,
+  "Grand Canyon": 5,
+  "Gateway Arch": 4.5,
+  "Indiana Dunes": 4.1,
+};
+
+//get all the keys as an array, you can use the built-in JavaScript method Object.keys(), like this:
+
+Object.keys(parks); // => ["Biscayne", "Grand Canyon", "Gateway Arch", "Indiana Dunes"];
+
+//print the keys by adding
+console.log(Object.keys(parks));
+//With the keys as an array, you can use the array methods that you've learned, like this:
+
+Object.keys(parks).filter((name) => {
+  const rating = parks[name];
+  return rating >= 4.5;
+}); // => ["Grand Canyon", "Gateway Arch"]
+
+//get all the values - Object.values() method returns an array of a given object's own enumerable property values
+
+/*const object1 = {
+  a: 'somestring',
+  b: 42,
+  c: false
+};
+
+console.log(Object.values(object1));
+
+*/
+// expected output: Array ["somestring", 42, false]

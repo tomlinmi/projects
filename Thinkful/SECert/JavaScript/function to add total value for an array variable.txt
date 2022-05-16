@@ -1,0 +1,25 @@
+/**
+ * Write a function named `campgroundCapacity`
+ */
+//given the campground array, return the total # of people the campground can host at all sites
+
+function campgroundCapacity(campgrounds){
+  
+  //initialize sum at 0
+  
+  let sum = 0;
+  //loop through the campgrounds array
+  
+  for (let i=0; i<campgrounds.length; i++){
+    
+   //accumulate the sum for object variable partySize values
+   sum += campgrounds[i].partySize;
+    
+  }
+  return sum;
+}
+
+
+// Do not make changes below this line
+
+module.exports = campgroundCapacity;

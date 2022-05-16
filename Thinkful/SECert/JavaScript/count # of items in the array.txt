@@ -1,0 +1,19 @@
+
+//function for how many candy types we have in inventory. each type is an index in the inventory array
+
+function countCandyTypes(inventory){
+  
+  //start counter at 0
+  
+  let count =0
+  //loop through inventory array
+  
+  for(let i=0; i<inventory.length; i++){
+   //for each inventory item, add one to the counter 
+    count = count+1
+  }
+  //after the for loop, return the current current
+  
+  return count
+  }
+

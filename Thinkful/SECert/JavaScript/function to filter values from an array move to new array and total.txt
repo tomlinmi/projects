@@ -1,0 +1,32 @@
+/**
+ * Write a function named `additionalCapacity`
+ */
+//function for the total capacity of the available sites. create new array to store filtered values.
+
+function additionalCapacity(campgrounds){
+  //declare new array to store filtered values
+  let capacity =new Array ();
+  //declare sum for the function
+   let sum = 0
+    //loop array and find filtered values then push to new array
+  for (let i=0; i<campgrounds.length; i++){
+    
+    if(campgrounds[i].isReserved===false){
+      //push value of delete in the campgrounds array to new array
+      capacity.push (campgrounds[i].partySize)
+       
+    }
+   //close 1st for loop 
+  }
+    //loop through new array and total up value
+  for (let j=0; j<capacity.length; j++){
+        sum +=capacity[j]; 
+      
+    }
+   return sum
+}
+ 
+  
+    
+// Do not make changes below this line
+module.exports = additionalCapacity;

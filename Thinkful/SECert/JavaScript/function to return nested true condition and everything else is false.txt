@@ -1,0 +1,24 @@
+//function on whether to order candy
+
+function shouldWeOrderThisCandy(inventory, candyToMatch){
+  
+  for (let i=0; i<inventory.length; i++){
+    
+     //order if the total # of candy instock is less that weekly average sold
+    
+    //find the candy in the array tha matches the name passed in
+    
+    if(inventory[i].candy===candyToMatch){
+    //return true if in stock is less than weekly average --should reorder
+      
+    if (inventory[i].inStock < inventory[i].weeklyAverage){
+    // return inside the last nested true condition
+         return true 
+    } }
+    
+  
+  }
+   // return false after the for loop
+    return false
+}
+  

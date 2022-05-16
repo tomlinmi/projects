@@ -1,0 +1,16 @@
+//function to check if snippetToMatch includes some of the input parameter (response)
+
+
+function checkForPlagiarism(answers, snippetToMatch){
+ 
+  for (let i=0; i<answers.length; i++){
+
+    if (answers[i].response.includes(snippetToMatch) && (answers[i].isEssayQuestion === true)){  
+          
+     return true 
+    }
+
+  }
+  return false
+  
+}

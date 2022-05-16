@@ -1,0 +1,21 @@
+function getStateSalesTax(stateAbbreviation) {
+  let result;
+  switch (stateAbbreviation) {
+    case "CA":
+      result = 0.0725;
+      break;
+    case "CO":
+      result = 0.029;
+      break;
+    case "GA":
+      result = 0.04;
+      break;
+    case "VT":
+      result = 0.06;
+      break;
+    default:
+      result = 0;
+  }
+
+  return result;
+}

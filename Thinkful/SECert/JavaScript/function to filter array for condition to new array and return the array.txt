@@ -1,0 +1,18 @@
+//function to find all the items in the shopping cart whose prices are under a certain price amount
+//return an array of items
+
+function priceFilter (items, priceToMatch){
+  
+ let priceBelow = new Array ()
+
+ for (let i=0; i<items.length; i++){
+   
+   if (items[i].price < priceToMatch){
+     
+     priceBelow.push(items[i])
+   }
+     
+   
+ }
+  return priceBelow
+}

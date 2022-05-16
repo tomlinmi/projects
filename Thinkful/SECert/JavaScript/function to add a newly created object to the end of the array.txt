@@ -1,0 +1,26 @@
+
+
+//create new candy object
+
+  let newCandy = {
+  candy: "Skittles",
+  inStock: 200,
+  weeklyAverage: 10,};
+  
+
+//function that takes in the inventory array and add a new candy object
+
+function addCandyToInventory(inventory, newCandy){
+ 
+ //add the new candy object to the end of the array.
+ 
+ //push method is to add to array.  to add to an object use: objectname[key] = value; not used here see other example
+
+  inventory.push(newCandy);
+
+//return the array
+
+ 
+  return inventory; 
+  
+}

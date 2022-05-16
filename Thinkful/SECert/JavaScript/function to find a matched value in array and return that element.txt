@@ -1,0 +1,19 @@
+//find answers to a particular question
+//return the item that matches the question
+
+function findAnswer(answers, questionToMatch){
+  
+   
+ //loop through the array for answers
+  for (let i=0; i<answers.length; i++){
+  // if question matches questionToMatch, push to the new Array     
+      if (answers[i].question === questionToMatch){  
+   
+        return answers[i]
+      }
+
+  }
+   
+     
+  }
+ 

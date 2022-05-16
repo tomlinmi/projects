@@ -1,0 +1,27 @@
+//function to create an empty object and return key value pair also if else statement
+
+
+function allCandyOrders(inventory){  
+  
+  //create an empty object  
+   let outputInventory = {}
+ //set function variable to zero
+   let orderAmt = 0
+ 
+   //loop thru inventory array with if else condition
+   for(let i=0; i<inventory.length; i++){
+     
+     if (inventory[i].inStock < inventory[i].weeklyAverage) {
+      
+         orderAmt = (2 * (inventory[i].weeklyAverage))  }
+     
+     else {orderAmt = 0 
+   }
+     
+//add key value pair to object after the if else statement
+  outputInventory[inventory[i].candy]=orderAmt    
+   
+}
+//return the outputInventory object after the for loop
+ return outputInventory 
+}
