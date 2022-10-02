@@ -1,0 +1,13 @@
+
+cd projects/Thinkful
+
+Module 39
+
+cd projects/Thinkful/BACKEND-DEV
+
+cd BACKEND-DEV/node-express-postgres/starter-node-express-postgresql/
+
+cd projects/Thinkful/project-flashcards_MT/
+
+
+

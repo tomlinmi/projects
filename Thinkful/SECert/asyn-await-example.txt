@@ -1,0 +1,53 @@
+const {
+  generateMessage,
+  goodbye,
+  generateSlogan,
+} = require("../utils/slogan-generator");
+
+REWRITE
+
+/*  
+function getSlogan(request) {
+  generateSlogan(request).then(response => {
+    console.log(`Your request was: ${request}`);
+    console.log(`Your slogan is: ${response.slogan}`);
+  });
+}
+*/
+
+/*
+
+function fullSession(request) {
+  generateMessage()
+    .then(console.log)
+    .then(() => getSlogan(request))
+    .then(() => goodbye())
+    .then(console.log);
+}
+*/
+
+
+async function getSlogan(request, next) {
+  try{
+  const response = await generateSlogan(request);
+
+  console.log(`Your request was: ${request}`);
+  console.log(`Your slogan is: ${response.slogan}`);
+}catch (error){
+  next (error);}
+}
+
+
+async function fullSession(request, next){
+  try{
+const response= await generateMessage();
+console.log(response);
+const request1 = await getSlogan(request);
+const gb = await goodbye();
+console.log(`${gb}`);    
+  } catch (error){
+    next(error); }    
+}
+
+  
+module.exports = { getSlogan, fullSession };

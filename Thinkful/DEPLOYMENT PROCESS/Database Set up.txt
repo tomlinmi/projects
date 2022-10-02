@@ -1,0 +1,54 @@
+Data base set up
+
+fork and clone starter code from github
+1. In target folder: git clone url
+
+2. Use dotenv to set Database_URL
+
+3. Database URL is used in the .env.sample and knexfile.js
+
+
+4. use the following command to copy .env.sample file to  .env
+cp .env.sample .env
+
+5. in the knexfile.js, dotenv is being used to load th .env file.
+
+ 
+6. install the application
+npm install
+
+8.  check databese connection with migrations
+npm run knex -- migrate:latest
+
+9. connect to production
+NODE_ENV=production npm run knex -- migrate:latest
+
+Deploying Application to Heroku
+
+1. Before deploying app to Heroku, you need to create a Procfile tha tells
+Heroku what to do after installing an app
+
+2. create a file named Procfile and copy the following line
+web: node ./api/index.js
+
+3.  the above code will tell Heroku to run index.js, which contains the server code. To read more about the Procfile, consult Heroku's Procfile documentation.
+
+4. Log into Heroku
+heroku login
+
+5. run heroku create
+heroku create
+
+6. copy the Git URL from the previous command and add it as a remote
+
+git remote add heroku-backend https://git.heroku.com/sheltered-harbor-22612.git
+
+7. then add, commit and push files to Heroku
+git add .
+git commit -m "add files to heroku"
+git push heroku-backend main
+
+8. for the app to work you need: 
+set the environment variables in Heroku with the heroku config:set command. Copy the PRODUCTION_DATABASE_URL that you set in your .env file and paste it after the command.
+
+heroku config:set PRODUCTION_DATABASE_URL=postgres://fleduqsq:VWRf14zSGO2G07QrE4O6_ERhNXctg1LB@jelani.db.elephantsql.com/fleduqsq

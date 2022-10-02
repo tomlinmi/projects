@@ -1,0 +1,60 @@
+Heroku deployment
+
+enter command
+
+1. heroku login
+	heroku: Press any key to open up the browser to login or q to exit:
+
+2. press any key except q
+
+3. Log in on website
+
+Create the project for the backend
+
+4. create folder for project	
+	mkdir foldername
+
+5. create server.js file
+	touch server.js
+
+6. create package.json file
+	touch package.json
+
+7. install and run
+	npm install
+	npm start
+	
+8. initialize git repo
+	git initialize
+
+9. add .gitignore file in the root folder of repo to specify files that Git should ignore
+
+	touch .gitignore
+	
+10. run heroku create to create project in Heroku
+$ heroku create
+Creating app... done, infinite-lowlands-45478
+https://infinite-lowlands-45478.herokuapp.com/ | https://git.heroku.com/infinite-lowlands-45478.git
+
+11. add and commit code
+	git add .
+	git commit -m "first commit"
+
+12. push code to the Heroku repository
+	git push heroku main
+
+13. To see the deployed app use heroku open
+		heroku open
+
+14. to redeploy your app, add, commit and push new changes to Heroku.
+	git add .
+git commit -m "updated project"
+git push heroku main
+
+	
+	
+
+
+
+
+

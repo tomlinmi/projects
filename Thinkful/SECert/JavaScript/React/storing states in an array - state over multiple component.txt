@@ -1,0 +1,66 @@
+
+
+/*variable returned is "timeList", list displaying the time the button was pressed.  return state to empty array. 
+add handleclick to return value at setTimeList using pattern.
+return time display at the time in timeList.  timelist and handleClick are in the parent and made available to the child components in props.
+
+*/
+
+ 
+function App() {
+  const [timeList, setTimeList] = useState([]);
+  const handleClick = (value) => setTimeList([...timeList, value]);
+  
+  return (
+  <>
+  <TimestampsDisplay timestamps={timeList} />
+  <ClickTimes handleClick={handleClick}/>
+    </>
+    );
+}
+
+export default App;
+
+/*ClickTimes calls state handleClick from parent and returns button
+handleClick on line 35 is invoked by Date.now method.
+
+import React from "react";
+
+function ClickTimes({handleClick}) {
+
+return (
+
+<section>
+  <div>
+    <button onClick ={()=> handleClick(Date.now())}>"Time Button"</button>
+  </div>
+  </section>
+);
+  
+  
+}
+
+export default ClickTimes;
+
+
+
+import React from "react";
+
+function TimestampsDisplay(props) {
+  const { timestamps } = props;
+  return (
+    <ol>
+      {timestamps.map((ts, i) => (
+        <li key={i}>{new Date(ts).toLocaleString()}</li>
+      ))}
+    </ol>
+  );
+}
+
+export default TimestampsDisplay;
+
+
+import React, { useState } from "react";
+import ClickTimes from "./ClickTimes";
+import TimestampsDisplay from "./TimestampsDisplay";
+

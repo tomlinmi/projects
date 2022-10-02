@@ -1,0 +1,5 @@
+ //decoding  
+    if (encode=== false){
+      input = input.match(/..?/g);
+	  
+	    //regular expression to search the string and return any 2 character, "g" -> used to find all the occurrences of the pattern instead of stopping after the first match  

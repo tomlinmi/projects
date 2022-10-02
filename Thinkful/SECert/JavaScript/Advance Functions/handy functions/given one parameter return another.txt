@@ -1,0 +1,13 @@
+Example Function,given name return score
+
+
+function findStudentScoreByName(students, name) {
+  let result = null
+  students.find(student => {
+    if(student.name === name)
+      result = student.score
+  })
+  return result
+}
+
+module.exports = findStudentScoreByName;

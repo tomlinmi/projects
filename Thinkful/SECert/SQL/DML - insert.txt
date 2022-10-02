@@ -1,0 +1,87 @@
+
+1. Create DB on ElephantSQL with PostgreSQL
+2. Connect to DB with DBeaver app (host = server, DB&Default database, copy password)
+3. rightclick DB connect on DBeaver and rename the database connection to match instance (development)
+4. select the DB and expand public (all new objects default to public)
+5. Open SQL editor, run SQL
+6. Save and F5 to refresh table_name
+
+
+Data Manipulation Language
+
+Insert into table syntax ( the value need to match order of column) not single quote
+
+INSERT INTO <table name>
+  (<column list>)
+  VALUES (<value list>);
+  
+example: 
+
+INSERT INTO articles
+  (title, abstract, author)
+  VALUES (
+    'Five uses for paper that you never imagined',
+    'List five surprising uses for paper that you would not think of on your own',
+    'Dwight Schrute'
+  );
+  
+  ======================================================
+  See table data
+  
+  example
+  SELECT * FROM articles;
+  
+  ===========================================================
+  
+  Insert Multiple records into a table
+  
+INSERT INTO <table name>
+  (<column list>)
+  VALUES (<value list>),
+  VALUES (<value list>),
+  VALUES (<value list>)
+  ;
+  
+  example
+  INSERT
+	INTO
+	articles (title, abstract, author)
+VALUES
+	(
+	  'The year of PostgreSQL is every year',
+	  'PostgreSQL development began during the Reagan administration — in 1986!',
+	  'Gerik Haslegrave'
+	),
+	(
+	  'A Getting Started PostgreSQL Tutorial',
+	  'PostgreSQL is a free open source database system that uses and extends the SQL language',
+	  'Calv Baudrey'
+	),
+	(
+	  'Experimenting with PostgreSQL in a Container',
+	  'When I heard I needed a PostgreSQL database, I immediately thought container.',
+	  'Gracie Brann'
+	);
+	
+	
+	another example 
+	
+INSERT INTO artists (first_name, last_name, birthday, is_alive)
+VALUES
+('Michael', 'Jackson', '1977-02-28', 'true'),
+('Diana', 'Ross', '1977-02-28',' true'),
+('Tina', 'Turner', '1977-02-28', 'true')
+;
+	=================================================================
+	
+	SQL Script files to store statement
+	
+	1. create sql file with script in vsCode
+	2. open file in DBeaver
+	3. set DB instance to development and database to public
+	4. execute script
+	5. check results with   SELECT * FROM <table>;
+	
+	
+	
+	

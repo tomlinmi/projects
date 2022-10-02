@@ -1,0 +1,168 @@
+//Build an app where the user can make text and image posts. This will resemble Tumblr or Twitter, but with a single user.
+
+A user can type in the text of a text post. For an image post, they should put the URL of an image.
+
+The user should be able to add a new post, edit a post, and delete a post.
+
+
+import React, { useState } from "react";
+
+/**
+ * Displays the form to create a new post, which can be either an image or a text post.
+ *
+ * When the form is submitted, a new post is created and the form contents cleared.
+ */
+function PostCreate({posts, setPosts}) {
+  const initialFormState = {
+    type: "Text",
+    content: "",
+  }
+  const [form, setForm] = useState({...initialFormState})
+  const [type, setType] = useState("Text");
+
+  const handleChange = ({target}) => {
+    if (target.name==="type") setType(target.value)
+    setForm({...form,
+      [target.name]: target.value
+    })
+  }
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault()
+    setPosts([...posts,form])
+    setType("Text")
+    setForm({...initialFormState})
+// need to reset the form 
+  }
+  
+
+  // TODO: When the form is submitted, a new post should be created, and the form contents cleared.
+
+  // For the tests to pass, the form below must have:
+  // - a `name="create"` attribute
+  // - one child `<button>` with a `type="submit"` attribute
+  // - one child `<select>` with a `name="type"` attribute
+  // - one child `<textarea>` or `<input>` (not both at the same time) with a `name="content"`
+
+  return (
+    <form name="create" onSubmit={handleSubmit}>
+      <fieldset>
+        <legend>Create</legend>
+        <div>
+          <label htmlFor="type">Type: </label>
+          <select 
+            id="type" 
+            name="type" 
+            required={true}
+            onChange={handleChange}
+            value={form.type}
+            >
+            <option>Text</option>
+            <option>Image</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor="content">Content: </label>
+          {type === "Text" ? (
+            <textarea 
+              id="content" 
+              name="content" 
+              required={true} 
+              rows={3} 
+              onChange={handleChange}
+              value={form.content}/>
+            ) : (
+            <input 
+              id="content" 
+              name="content" 
+              type="url" 
+              required={true}
+              onChange={handleChange}
+              value={form.content} />
+            )}
+        </div>
+        <div>
+          <button type="submit">Submit</button>
+        </div>
+      </fieldset>
+    </form>
+  );
+}
+
+export default PostCreate;
+
+
+import React from "react";
+
+
+function PostView({post, PostDelete}) {
+  if (post.type === "Text"){
+    return (
+    <div className="post">
+        <p>{post.content}</p>
+        <button name="delete" onClick={PostDelete}>Delete</button>
+    </div>
+ 
+    )
+  } else {
+    return (
+    <div className="post">
+        <img src={post.content} alt=""></img>
+        <button name="delete" onClick={PostDelete}>Delete</button>
+    </div>
+  
+    )
+  }
+}
+function PostList({posts,PostDelete}) {
+  // TODO: Diplay the list of posts.
+  // TODO: Create at least one additional component that is used by this component.
+  // TODO: Each post must have className="post" for the tests to work.
+  // TODO: Each post must have a delete button - <button name="delete">Delete</button> - that deletes the post when clicked
+
+  return (
+  <div className="post-list">
+    <ul className="list">
+      {posts.map((post, index) => (
+        <PostView
+          PostDelete={() => PostDelete(index)}
+          key={index}
+          post={post}
+        />
+      ))}
+    </ul>
+  </div>);
+}
+
+export default PostList;
+
+
+import React, { useState } from "react";
+import "./App.css";
+import PostCreate from "./PostCreate";
+import PostList from "./PostList";
+
+function App() {
+  const [posts, setPosts] = useState([]);
+  const PostDelete = (indexToDelete) => {
+    const filteredList = posts.filter(
+      (post,index) => index !== indexToDelete
+      )
+    setPosts(filteredList)
+    }
+
+
+
+  // TODO: Add the ability for the <PostCreate /> component to create new posts.
+  // TODO: Add the ability for the <PostList /> component to delete an existing post.
+  return (
+    <div className="App">
+      <PostCreate posts={posts} setPosts={setPosts}/>
+      <PostList posts={posts} PostDelete={PostDelete}/>
+    </div>
+  );
+}
+
+
+export default App;

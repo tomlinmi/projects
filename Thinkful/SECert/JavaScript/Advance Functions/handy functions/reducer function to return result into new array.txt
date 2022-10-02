@@ -1,0 +1,20 @@
+example of reduce function like -> 
+
+
+
+
+
+
+const parkToAreasObject = parks.reduce((result, park) => { result[park.name] = park.areaInSquareKm; return result; }, {});
+
+Here you can see we are passing the empty object to our reduce function as initial value, that is assign to the result variable.
+
+And we are modify the result in the callback function, so we need to return the modifeded result.
+
+Example for assessment 10.2
+
+const result = books.reduce((popularBooks, book) => {popularBooks.push({ name: book.title, count: book.borrows.length}); return popularBooks },[]);
+  
+result.sort((objA, objB) => objB.count - objA.count);
+return result.slice(0,5)
+}  

@@ -1,0 +1,195 @@
+
+1. Create DB on ElephantSQL with PostgreSQL
+2. Connect to DB with DBeaver app - New DataBase Connection (PostgreSQL host = server exclude info after .com, DB&Default database, copy password)
+3. rightclick DB connect on DBeaver and rename the database connection to match instance (development)
+4. select the DB and expand public (all new objects default to public)
+5. Open SQL editor console, run SQL
+6. Save and F5 to refresh table_name
+
+
+Data Query Language
+
+Query
+
+
+SELECT <column list>
+FROM <table name>;
+
+example
+
+SELECT * FROM articles;
+
+example
+SELECT title, abstract
+FROM articles;
+
+Query - Where clause restriction
+
+SELECT <column list>
+FROM <table name>
+WHERE <conditions>;
+
+SELECT title
+FROM articles
+WHERE author='Dwight Schrute';
+
+
+==============================================================
+Searching for NULL
+Use IS NULL
+
+exampleSELECT title
+FROM articles
+WHERE body IS NULL;
+
+another example - find all articles with a non-null body value
+
+SELECT *
+FROM articles
+WHERE body IS DISTINCT FROM NULL;
+
+find all articles with a null body value
+SELECT *
+FROM articles
+WHERE body IS NOT DISTINCT FROM NULL;
+
+
+find all articles with a null body value or a body value that is not equal to some-value:
+SELECT *
+FROM articles
+WHERE body IS DISTINCT FROM 'some-value';
+
+example - list of all book and author-related fields for all books written before 2005 by non-US authors.
+
+SELECT *
+
+FROM authors a
+JOIN 
+books b
+ON a.author_id = b.author_id
+WHERE b.publication_year < '2005' AND a.nationality IS DISTINCT FROM 'United States of America';
+
+
+In the WHERE clause, you can combine multiple conditions using AND and OR operators. If you want both conditions to be TRUE, use the AND operator.
+
+SELECT product_name, aisle, department
+FROM products
+WHERE department = 'bakery'
+AND aisle = 'bakery desserts';
+
+Add the DISTINCT operator to the query to remove duplicates from the results.
+SELECT DISTINCT aisle
+FROM products;
+
+How many aisles are there?
+
+SELECT count(DISTINCT aisle)
+FROM products;
+
+find tea drink
+SELECT product_name, price
+FROM products
+WHERE department = 'beverages'
+AND aisle = 'tea';
+
+or 
+SELECT product_name, price
+FROM products
+WHERE department = 'beverages'
+AND aisle = 'tea'
+AND price < 15
+AND price > 10;
+
+use count for how many match criteria
+
+SELECT count(*)
+FROM products
+WHERE department = 'beverages'
+AND aisle = 'tea'
+AND price < 15
+AND price > 10
+AND product_name = 'Raspberry';
+
+count how many match with product name contains Raspberry
+SELECT product_name, price
+FROM products
+WHERE department = 'beverages'
+AND aisle = 'tea'
+AND price < 15
+AND price > 10
+AND product_name LIKE '%Raspberry%';
+
+
+another example, last name contains B
+
+SELECT last_name
+FROM artists
+WHERE last_name LIKE '%B%';
+
+===================================================================
+sort
+
+SELECT product_name, price
+FROM products
+WHERE department = 'pets'
+ORDER BY price;
+
+sort by decending order
+
+SELECT product_name, price
+FROM products
+WHERE department = 'pets'
+ORDER BY price DESC;
+
+=========================================
+count per department
+SELECT count(*)
+FROM products
+WHERE department = 'pets';
+
+Count Each department
+
+SELECT department, count(*)
+FROM products
+GROUP BY department;
+
+
+total price of all products in each department
+SELECT department, sum(price)
+FROM products
+GROUP BY department;
+
+========================
+
+SELECT department, count(*), sum(price), min(price), max(price), avg(price)
+FROM products
+GROUP BY department
+ORDER BY department;
+
+
+Length of characters in column
+Select *
+
+FROM books b
+JOIN 
+authors a
+ON a.author_id = b.author_id
+WHERE length(b.title) > 25;
+
+
+
+4 Way JOIN Query
+
+Select *
+
+FROM authors a
+JOIN books b
+ON a.author_id = b.author_id
+JOIN books_genres bg
+ON b.book_id = bg.book_id
+JOIN genres g
+ON g.genre_id = bg.genre_id
+
+WHERE a.author_name = 'Leo Tolstoy' 
+AND (g.genre_name = 'autobiography'
+OR g.genre_name = 'history');

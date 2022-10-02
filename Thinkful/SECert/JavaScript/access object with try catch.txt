@@ -1,0 +1,13 @@
+//function that takes car object and returns car's color. 
+//use try and catch so that if accessing the color raises an error,  return "Color unknown"
+let car = { make: "Honda", model: "Civic", color: "Slate Grey" };
+function getCarColor(car) {
+//try to access color, if successful, return color
+    try{
+      return car.color
+    }catch(error){ 
+ return "Color unknown"
+}
+}  
+  
+   

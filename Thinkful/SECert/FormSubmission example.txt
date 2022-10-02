@@ -1,0 +1,55 @@
+import "./index.css";
+
+/*
+ Your solution here
+ */
+//Then add a main() function that creates the event listener for the form submission.
+    // get the form element  
+const form = document.querySelector("#searchForm");
+
+ //window.addEventListener("DOMContentLoaded", main);
+
+//function to handle the submit input event
+const submitHandler = (event)=>{
+  event.preventDefault(); //prevent browser default behavior
+  let formEvent = event.target; 
+  const formData = new FormData(formEvent);
+   let data = formData.get("searchTerm"); //get data from the formData
+  if (!(data && data.trim())) {
+   //create div element and add the error\, then will append to the .search class
+    let newDiv = document.createElement("div");
+
+newDiv.innerHTML = '<div class="error" id="searchError">Please enter a search term</div>'
+
+document.querySelector(".search").appendChild(newDiv);
+  }
+    else {
+      const articles = document.querySelectorAll(".articles > article");
+    articles.forEach((article) => {
+      let header = article.children[0].innerHTML;
+      if (header.toLowerCase().includes(data.toLowerCase())) {
+        if (article.classList.contains("hidden")) {
+          article.classList.remove("hidden");
+        }
+      } else {
+        article.classList.add("hidden");
+      }
+    })
+}
+  };
+
+// function validateForm(formData) {
+   // const errors = {};
+  
+    // check if form has search values entered
+   // if (!validateExists(formData.get("searchTerm"))) {
+     // errors.name = "Please enter a search term";
+   // }
+      
+ 
+
+  const main = () => {
+        // attach the submit handler
+    form.addEventListener("submit", submitHandler);
+  };
+  

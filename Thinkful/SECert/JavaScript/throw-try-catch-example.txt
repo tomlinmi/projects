@@ -1,0 +1,59 @@
+Try catch assessment
+const {};
+
+function createSecretLocation(lat, lon, passcode) {
+
+if(!lat || !lon || !passcode){
+throw "latitude, longitude, and passcode are required";
+}
+
+try{
+locations[lat][lon] = passcode;
+} catch(error) {
+locations[lat] = {};
+locations[lat][lon] = passcode;
+}
+}
+ assuming that locations variable is an empty object what wil be the last line of code run in the function if called as follows
+ createSecretLocation (40.35, -105.81)
+
+Answer -  throw "latitude, longitude, and passcode are required!";
+
+assume - createSecretLocation(40.35, -105.81, "ROCKY-MOUNTAINS");
+Answer locations[lat][lon] = passcode; inside the catch block.
+===========================================================
+
+
+const locations {
+
+"40.35":{
+"-105.81":"Rocky-Mountains", 
+"22.54":"Katerini-Greece"},
+"28.66":{"-105.81": "Chihuahua-Mexico"}
+};
+
+function createSecretLocation(lat, lon, passcode) {
+
+if(!lat || !lon || !passcode){
+throw "latitude, longitude, and passcode are required";
+}
+
+let result;
+
+try{
+if (locations[lat][lon] === passcode){
+result = "Welcome"}
+}else{
+throw "Nothing to see here!";
+}
+} catch(error) {
+if (typeof error === "string") {
+result = error;
+}else {
+result= "You look around and don't see a thing.".
+}
+}
+return result;
+
+
+}

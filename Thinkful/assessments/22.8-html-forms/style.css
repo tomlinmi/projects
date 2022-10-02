@@ -1,0 +1,15 @@
+body {
+    padding: 10px;
+  }
+  
+  input {
+    margin: 0px;
+    width: 500px;
+  }
+
+  textarea {
+  margin: 0px;
+    width: 500px;
+    height: 100px;
+
+  }

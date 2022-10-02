@@ -1,0 +1,25 @@
+import React, { useState } from "react";
+import "./App.css"
+
+
+/*The convention for creating a state variable with useState() is to name the function
+ set[VariableName]. So if the variable is subscribed, the function will be setSubscribed().
+ */
+ //log on line 13 added to show state in the browser developer console...not required
+
+function App() {
+	const [subscribed, setSubscribed] = useState(false);
+
+	console.log("Subscribed status:", subscribed);
+  
+	return (
+	  <section>
+		<p>Please click to subscribe to my updates!</p>
+		<button onClick={() => setSubscribed(!subscribed)}>
+			{subscribed ? "Unsubscribe" : "Subscribe"}
+			</button>
+	  </section>
+	);
+  }
+  
+  export default App;

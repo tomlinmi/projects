@@ -31,14 +31,18 @@ const parks = [
     },
   };
 
+  function getUsersForUserWishlist(users) {
   
-  function getWishlistParksForUser(parks, users, username) {
-      parks.forEach((park)=>park.id===username.wishlist)
-   let wishMet = [];
-   wishMet.push(park)
-   // return wishMet
-  
-}
-console.log(getUsersForUserWishlist(parks, users, "karah.branch3"));  
-console.log(JSON.stringify(wishMet))
+
+
+
+
+   //const userVisitedWish = users.find((user)=>users.visited===users.wishlist);
+   // return userVisitedWish
+    
+  }
+ console.log(getUsersForUserWishlist(users));
+   //console.log(JSON.stringify(users))
+//console.log(getUsersForUserWishlist(parks, users, "karah.branch3"));  
+
      

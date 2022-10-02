@@ -1,0 +1,50 @@
+
+// GroceryList.js
+function GroceryList({ items }) {
+    const list = items.map((item, index) => <li key={index}>{item}</li>);
+    return <ul>{list}</ul>;
+  }
+
+  export default GroceryList
+  
+  
+  //App.js
+import "./App.css"
+import GroceryList from "./GroceryList";
+
+const groceryItems = ["Bananas", "Apples", "Oranges"];
+
+
+function App() {
+return (
+      <div>
+	  
+	  <GroceryList items={groceryItems} />
+	  
+	  </div>
+	  );
+
+}
+
+export default App;
+
+
+Another example (function and component in App.js file
+
+//App.js
+import React from "react";
+import "./App.css"
+
+
+const todos = [
+	"Finish the Lists & Tables checkpoint",
+	"Clean my desk",
+	"Make lunch",
+  ];
+  
+  function App() {
+	const listItems = todos.map((todo, index) => <li key={index}>{todo}</li>);
+	return <ul>{listItems}</ul>;
+  }
+  
+  export default App;

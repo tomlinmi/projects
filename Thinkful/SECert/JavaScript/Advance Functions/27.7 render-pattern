@@ -1,0 +1,67 @@
+Render the array of books and the cart total and insert them on the DOM.
+  The books should be rendered in the `section` with id "cartItems".
+  The total should be rendered in the `section` with id "cartTotal".
+*/
+function render() {
+   // Get the parent element
+const section = document.querySelector("#cartItems");
+
+  // Empty the parent element
+  section.innerHTML = "";
+
+  // Get the books HTML
+  let bookContent = books.map(renderBook).join("");
+  if(!bookContent) bookContent = "Nothing in cart";
+   // Set the `innerHTML` of parent element
+  section.innerHTML = bookContent;
+  //select the class total-price
+const Total = document.querySelector(".total-price");
+const totalPrice = calculateTotal();
+Total.innerText = `$${totalPrice}`;
+};
+  
+/*
+  Sort the `books` array by price in ascending order, then call `render()`.
+*/
+ 
+function sortByPrice(bookA, bookB) {
+  books.sort((bookA, bookB)=>{ 
+  const bookAPrice=bookA.price;
+  const bookBPrice=bookB.price;
+ 
+  if (bookAPrice < bookBPrice) {
+    return -1;
+  } else if (bookAPrice > bookBPrice) {
+    return 1;
+  } else {
+    return 0;
+  }
+  });
+  
+  render();
+ 
+};
+
+/*
+  Perform all startup tasks here. Use this function to attach the required event listeners
+  then call `render()`.
+*/
+function main() {
+ //select the price sorter button
+ const priceSorter = document.querySelector("#sortBtn");
+  //add an event listener
+priceSorter.addEventListener("click", sortByPrice)
+  
+
+  render();
+  
+}
+//// Add event listener for DOMContentLoaded
+window.addEventListener("DOMContentLoaded", main);
+
+/////////////////////////////////
+// DO NOT EDIT BELOW THIS LINE //
+/////////////////////////////////
+window.render = render;
+window.calculateTotal = calculateTotal;
+window.sortByPrice = sortByPrice;

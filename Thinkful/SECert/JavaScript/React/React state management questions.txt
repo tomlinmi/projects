@@ -1,0 +1,22 @@
+React state management: Interactive components
+Select all that are true.
+
+Answer: B and C.
+
+B. A component can edit its own state.
+
+C. A component's props can be edited by its parent.
+
+True/False. React component props store information about the component, and this information can be updated by the component
+
+Answer: B False
+
+Fill in the blank:
+
+A ____ is a special React function that gives you access to some React process.
+
+Answer: A hook
+
+True/False. In React, data flows from parent components down to the child components, so the parent component's data is the single source of truth for how that component and its children should render.
+
+Answer: A True

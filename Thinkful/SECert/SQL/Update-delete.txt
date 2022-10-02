@@ -1,0 +1,68 @@
+1. Create DB on ElephantSQL with PostgreSQL
+2. Connect to DB with DBeaver app (host = server, DB&Default database, copy password)
+3. rightclick DB connect on DBeaver and rename the database connection to match instance (development)
+4. select the DB and expand public (all new objects default to public)
+5. Open SQL editor, run SQL
+6. Save and F5 to refresh table_name
+
+Update
+
+UPDATE table_name
+SET column_name_1 = <value_1>,
+    column_name_n = <value_n>;
+	
+	
+DEFAULT value
+example 
+set fax to default
+
+UPDATE employees
+SET fax = DEFAULT;
+
+Update certain rows (Restrict)
+
+UPDATE table_name
+SET column_name_1 = <value_1>,
+    column_name_n = <value_n>
+WHERE <conditions>;
+
+example - all of the employees that reported to Willie Lyons will now report to  Fibber McGee.
+
+UPDATE employees
+SET reports_to = 'Fibber McGee'
+WHERE reports_to = 'Willie Lyons';
+
+
+Update multiple column values
+
+UPDATE employees
+SET job_title = 'Chemical Engineer II', city = 'Lawrenceville'
+WHERE job_title = 'Chemical Engineer' AND city = 'Trenton';
+
+
+============================================================
+Deleting Data without deleting table itself.  use Truncate for delete all data in table
+
+DELETE FROM <table_name>
+WHERE <conditions>
+
+
+VP of Sales job were entered as employees, but only the VP of Sales reporting to Adele Gonzalez was actually hired.
+
+test where clause before delete
+SELECT * FROM employees
+WHERE job_title = 'VP Sales' AND reports_to <> 'Adele Gonzalez';
+
+change SELECT * to DELETE
+
+DELETE FROM employees
+WHERE job_title = 'VP Sales' AND reports_to <> 'Adele Gonzalez';
+
+==================================
+Clearing all the data at once
+TRUNCATE
+
+TRUNCATE TABLE <table_name>;
+
+TRUNCATE multiple tables
+TRUNCATE TABLE <table_name_1>, <table_name_2>, …;

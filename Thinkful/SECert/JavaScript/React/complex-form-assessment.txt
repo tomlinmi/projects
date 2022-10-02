@@ -1,0 +1,121 @@
+/*Build the RSVPForm component in RSVPForm.jsx to be a form with the following fields, in this order:
+
+Name input field.
+Dropdown with the following age ranges: Prefer not to say, 0-19, 20-39, 40-59, 60+.
+New Member checkbox, set to unchecked by default.
+Comment input field.
+Submit button.
+Upon submission, log each value together, in a single statement, to the console, and clear the fields in the form.
+*/
+
+
+
+import React, { useState } from "react";
+
+function RSVPForm() {
+ const initialFormState = {
+       name: "",
+       age:"",
+       newMember: false,
+       comment: "",
+    };
+
+  const [formData, setFormData] = useState({ ...initialFormState });
+    
+ const handleChange = ({ target }) => {
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        setFormData({
+          ...formData,
+          [target.name]: value,
+        });
+      };
+ 
+ const handleSubmit = (event) => {
+      event.preventDefault();
+      setFormData({ ...initialFormState });
+   console.log(formData.name, formData.age, formData.newMember, formData.comment); 
+      };
+
+  
+    return (
+      <form onSubmit={handleSubmit}>
+        <label htmlFor="name">
+          Name:
+          <input
+            id="name"
+            type="text"
+            name="name"
+            onChange={handleChange}
+            value={formData.name}
+          />
+        </label>
+               
+        <label htmlFor="age">
+        Age:
+        <select
+        id="age"
+        name="age"
+        onChange={handleChange}
+        value={formData.age} 
+          >
+            <option value="">Prefer not to say </option>
+            <option value="0-19">0-19</option>
+            <option value="20-39">20-39</option>
+            <option value="40-59">40-59</option>
+            <option value="60+">60+</option>
+        </select>
+        </label>
+
+        <label htmlFor="newMember">
+            New Member?
+           <input
+          id="newMember"
+          type="checkbox"
+          name="newMember"
+          onChange={handleChange}
+          checked={formData.newMember}
+          value="newMember"
+          />
+        </label>
+      
+    
+        <label htmlFor="">
+          Comment:
+          <input
+            id="comment"
+            type="text"
+            name="comment"
+            onChange={handleChange}
+            value={formData.comment}
+          />
+        </label>        
+        
+        <br />
+        <button type="submit">Submit</button>
+
+      </form>
+    );
+ 
+}
+
+export default RSVPForm;
+
+
+import React from "react";
+import ReactDOM from "react-dom";
+import "./styles.scss";
+import RSVPForm from "./RSVPForm";
+
+function App() {
+  return (
+    <div className="App">
+      <h1>RSVPForm Example</h1>
+      <div class="example">
+        <RSVPForm />
+      </div>
+    </div>
+  );
+}
+
+export default App;
+

@@ -1,0 +1,97 @@
+aggregate data using standard Knex queries and JavaScript.
+
+COUNT
+
+ Knex count() method performs a count on the specified column or array of columns. In PostgreSQL, count() returns a bigint type, which will be a string.
+ 
+ knex("products").count("product_id");
+ 
+This translates to the following:
+
+SELECT COUNT("product_id") FROM "products";
+
+example query builder in service
+
+function listOutOfStockCount() {
+  return knex("products")
+    .select("product_quantity_in_stock as out_of_stock")
+    .count("product_id")
+    .where({ product_quantity_in_stock: 0 })
+    .groupBy("out_of_stock");
+}
+
+The query above selects the product_quantity_in_stock column (aliased as out_of_stock) from the products table. It also selects a count all of the products where product_quantity_in_stock is set to 0. Finally, it groups the result by the out_of_stock column.
+make sure to include function in module.exports
+
+Now add related handler in controller which calls get method in the service.
+
+async function listOutOfStockCount(req, res, next) {
+  res.json({ data: await productsService.listOutOfStockCount() });
+}
+
+export handler like this:
+
+
+  module.exports = {
+    read: [asyncErrorBoundary(productExists), read],
+    list: asyncErrorBoundary(list),
+    listOutOfStockCount: asyncErrorBoundary(listOutOfStockCount),
+  };
+
+Next add route:
+router.route("/out-of-stock-count").get(controller.listOutOfStockCount).all(methodNotAllowed);
+
+MIN Method
+
+knex("products").min("product_price");
+This translates to the following:
+
+SELECT MIN("product_price") FROM "products";
+
+MAX method
+knex("products").max("product_price");
+This translates to the following:
+
+SELECT MAX("product_price") FROM "products";
+
+AVERAGE method
+
+knex("products").avg("product_price");
+This translates to the following:
+
+SELECT AVG("product_price") FROM "products";
+
+Example of summary query added to service
+
+function listPriceSummary() {
+  return knex("products")
+    .select("supplier_id")
+    .min("product_price")
+    .max("product_price")
+    .avg("product_price")
+    .groupBy("supplier_id");
+}
+
+
+RAW method 
+accepts a query as a parameter
+example
+knex("products").select(raw("sum(column_1_value * column_2_value) as total"));
+This translates to the following:
+
+SELECT SUM(column_1_value * column_2_value) as total
+FROM "products"
+
+Another example - slects sku and title and 3rd column total...
+
+function listTotalWeightByProduct() {
+  return knex("products")
+    .select(
+      "product_sku",
+      "product_title",
+      knex.raw(
+        "sum(product_weight_in_lbs * product_quantity_in_stock) as total_weight_in_lbs"
+      )
+    )
+    .groupBy("product_title", "product_sku");
+}

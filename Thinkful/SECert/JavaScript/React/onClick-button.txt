@@ -1,0 +1,44 @@
+import "./App.css"
+
+function App() {
+
+	const handleClick = () => {
+		console.log("Subscribing!");
+		alert("You subscribed!");
+	  };
+	  
+return (
+      <>
+	  
+	  <p> Please click to Subscribe </p>
+	  <button onClick={handleClick}>Subscribe</button>
+	  
+	  </>
+	  );
+
+}
+
+export default App;
+
+
+//confirming in the browser console (right click then inspect) the DOM that is being targeted.  In this case, its the button "Subscribe"
+
+import "./App.css"
+
+function App() {
+
+	const handleClick = (e) => console.log(e.target);
+
+	  
+return (
+      <>
+	  
+	  <p> Please click to Subscribe </p>
+	  <button onClick={handleClick}>Subscribe</button>
+	  
+	  </>
+	  );
+
+}
+
+export default App;

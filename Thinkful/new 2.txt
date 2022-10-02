@@ -1,0 +1,30 @@
+import "./styles.css";
+
+/*
+Add event listeners to the `.expand_button` buttons
+*/
+
+//
+function expandArticleBody() { 
+  const allBtns = document.querySelectorAll(".expand_button");
+  for(let btn of allBtns){ btn.addEventListener("click", (event) => { 
+    let x = event.target.parentNode.parentNode.parentNode.querySelector(".article_body"); 
+    if(btn.innerText == "V"){ x.parentNode.style.display = "none"; btn.innerText = ">"; } 
+    else { 
+      x.style.display = "block"; btn.innerText = 'V'; } 
+  }) 
+ } 
+}
+/*
+Add event listeners to the `.highlightBtn` buttons
+*/
+function highlightArticle() {
+  // your code here
+}
+
+function main() {
+  expandArticleBody();
+  highlightArticle();
+}
+
+main();

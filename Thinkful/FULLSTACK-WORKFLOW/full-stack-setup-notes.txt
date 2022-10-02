@@ -1,0 +1,46 @@
+Set up a new ElephantSQL database instance 
+by following the instructions in the 
+"PostgreSQL: Creating & Deleting Databases" 
+checkpoint.
+. ElephantSQL website log in
+. Create new instance
+
+
+After setting up your database instance, 
+connect DBeaver to your new database instance 
+by following the instructions in the 
+"PostgreSQL: Installing DBeaver" checkpoint.
+
+. Open DBeaver app
+. click on option for New DB instance
+. connect DB with Host = server without ()
+user and default database and password
+
+Test connection
+Rename DB to name in ElephantSQL
+
+Next in the Backend program folder
+
+Run  command below to copy .env.sample file to .env file
+
+cp .env.sample .env
+1. Update your `.env` file with a 
+connection URL to your 
+ElephantSQL database instance.
+
+DEVELOPMENT_DATABASE_URL=""
+
+2. run npm install to install project dependencies
+
+3. start backend program in dev
+	Run `npm run start:dev` to start your server in development mode.
+
+4. Install and start front end program
+
+
+Start in the front end project by creating a new route and minimal UI
+
+
+
+
+

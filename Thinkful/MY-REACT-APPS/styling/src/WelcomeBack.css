@@ -1,0 +1,12 @@
+p {
+    color: black;
+    font-family: sans-serif;
+  }
+  
+  .username {
+    color: #ff3;
+    padding: 2px 4px;
+    margin-right: 2px;
+    background-color: #000;
+    border-radius: 4px;
+  }

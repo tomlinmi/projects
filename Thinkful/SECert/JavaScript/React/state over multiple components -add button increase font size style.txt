@@ -1,0 +1,46 @@
+import React, { useState } from "react";
+import Content from "./Content";
+import Header from "./Header";
+
+function App() {
+  const [loggedIn, setLoggedIn] = useState(false);
+  const toggleLoggedIn = () => setLoggedIn(!loggedIn);
+  const [fontSize, setFontSize] = useState(12);
+    return (
+    <div>
+      <Header loggedIn={loggedIn} handleLoggedInClick={toggleLoggedIn} setFontSize = {setFontSize} />
+      <Content loggedIn={loggedIn} fontSize = {fontSize}/>
+    </div>
+  );
+}
+
+export default App;
+
+
+import React from "react";
+
+function Content({ loggedIn ,fontSize}) {
+  return loggedIn && <p style={{fontSize:fontSize}}>CONTENT</p>;
+}
+
+export default Content;
+
+
+
+import React from "react";
+
+function Header({ loggedIn, handleLoggedInClick, setFontSize }) {
+  
+ const IncreaseFontSize = () => setFontSize((currentSize) => currentSize +2);
+  
+  return (
+      <div> 
+      <button onClick={handleLoggedInClick}> {loggedIn ? "Log Out" : "Log In"} </button>
+      <button onClick={IncreaseFontSize}>Increase Font Size</button> 
+    </div>
+     
+  );
+}
+  
+export default Header;
+

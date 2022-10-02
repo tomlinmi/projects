@@ -1,0 +1,45 @@
+/*
+  Write a function that separates students into two buckets based on a given score. The end result for the "happy path" should be an array with two arrays inside of it.
+*/
+
+//PERSONAL CODE NOT SURE WHY DIDNT WORK
+
+//returns an array with two array inside of it.  
+//maintain 2 arrays
+function partitionStudentsByScore(students, score) { 
+
+  const result = [[] ,[]]
+  const studentsBelowScore = []
+  const studentsAboveScore = []
+  //if student array is empty, return empty array
+  if (!students || !score) { return result };
+  students.forEach((student)=>{
+    //statment to loop thru student score and determine which array to partition it into
+  if(student.score <= score){
+    
+    studentsBelowScore.push(student)}
+  else{
+    studentsAboveScore.push(student)
+  }
+    //store partitioned arrays into result array
+ result.push(studentsBelowScore) 
+ result.push(studentsAboveScore) 
+})
+                 
+  return result;
+  
+}
+
+module.exports = partitionStudentsByScore;
+//COACHES CODE
+function partitionStudentsByScore(students, score) { 
+
+   //if student array is empty, return empty array
+  let result = [studentsBelowScore = [], studentsAboveScore = []];
+  
+  if (!students || !score) { return result };
+  const sort = students.forEach((student) => {
+    student.score <= score ? studentsBelowScore.push(student) : studentsAboveScore.push(student);
+  });  
+  return result;    
+}

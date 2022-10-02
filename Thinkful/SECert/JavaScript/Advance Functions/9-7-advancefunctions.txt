@@ -1,0 +1,86 @@
+
+  /*
+  Complete the functions below as described in the instructions.
+
+  The `parks` parameter refers to an array of objects with the following shape:
+  {
+    id: 1,
+    name: "Acadia",
+    areaInSquareKm: 198.6,
+    location: { state: "Maine" },
+  }
+
+  The `users` parameter refers to an object with the following shape:
+  {
+    "karah.branch3": {
+      visited: [1],
+      wishlist: [4, 6],
+    }
+  }
+*/
+
+function getParksByState(parks, state) {
+  const filteredParks = parks.filter((park)=>park.location.state===state);
+  return filteredParks
+  
+}
+//returns array of park objects related to the user with username's wishlist
+
+function getWishlistParksForUser(parks, users, username) { 
+  return parks.filter((park) => users[username].wishlist.includes(park.id)); 
+ }  
+  
+  
+//This function returns a boolean that represents whether or not a user has visited all parks in the parks array from a given state.
+
+function userHasVisitedAllParksInState(parks, users, state, username) {
+  const filteredParks = parks.filter((park)=>park.location.state===state)
+return parks.every((park)=>users[username].visited.includes(park.id)); 
+  stateParks.every((park) => visitList.includes(park.id));
+}
+
+//This function returns a boolean that represents whether or not a user has visited all parks in the parks array from a given state.
+
+function userHasVisitedAllParksInState(parks, users, state, username) {
+  const visitList = users[username].visited;
+  // array of visited park id's
+  console.log(visitList)
+  const stateParks = parks.filter((park) => park.location.state === state);
+  // objects of matching states
+  let result = stateParks.every((park) => visitList.includes(park.id)); 
+  return result; }
+
+//This function takes in the list of users and two usernames. If the first user has visited any of the parks represented by the second user's wish list, return true. Otherwise, return false.
+
+function userHasVisitedParkOnWishlist(users, username1, username2) {
+ const user1Visited = users[username1].visited;
+  console.log (user1Visited);
+    //array of visited park ids
+  const user2Wish = users[username2].wishlist;
+  console.log(user2Wish);
+    //array of park id on wishlist ids
+   let result = user1Visited.some((user1VisitedPark)=>user2Wish.includes(user1VisitedPark));
+ 
+  return result;
+      
+}
+
+ // This function returns all the usernames who have visited any park on the given user's wish list
+function getUsersForUserWishlist(users, username) { 
+  
+ let userWish = users[username].wishlist; 
+  let result = []; 
+  for (let key in users) { const isPresent = userWish.some((userWishPark) => users[key].visited.includes(userWishPark) ); 
+                          
+   if (isPresent) result.push(key); } return result; }
+
+
+
+
+module.exports = {
+  getParksByState,
+  getWishlistParksForUser,
+  getUsersForUserWishlist,
+  userHasVisitedAllParksInState,
+  userHasVisitedParkOnWishlist,
+};

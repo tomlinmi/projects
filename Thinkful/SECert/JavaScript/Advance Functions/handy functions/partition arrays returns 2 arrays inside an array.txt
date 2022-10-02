@@ -1,0 +1,19 @@
+function partitionBooksByBorrowedStatus(books) {
+ //returns an array with two arrays inside of it. All of the inputted books are present in either the first or second array.
+ //maintain 2 arrays, 1 for books returned the other for books not returned. run test with if statement and push results to the 2 arrays.  
+const result = []
+const returnedBooks = []
+const notReturnedBooks =[]
+
+books.forEach((book)=>{
+ const borrowed = book.borrows
+ //check returned status in array
+ if(!borrowed[0].returned){
+   notReturnedBooks.push(book)}
+ else{
+   returnedBooks.push(book)}
+ result.push(notReturnedBooks)
+ result.push(returnedBooks)
+})
+ return result;
+}

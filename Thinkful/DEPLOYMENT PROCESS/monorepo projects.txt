@@ -1,0 +1,35 @@
+This repository is set up as a monorepo, 
+meaning that the client and backend projects are in one repository. 
+This allows you to open both projects in the same editor.
+
+1. fork and clone code from git hub
+2. install and run (npm install npm start)
+
+3. create Heroku folder for backend and client ( folders in heroku must be unique)
+
+$ heroku create name-generator-backend-MNT
+
+$ heroku create name-generator-client-MNT
+
+4. Use git remote add to add the Heroku Git repos 
+
+	git remote add heroku-backend https://git.heroku.com/name-generator-backend-MNT.git
+	
+	git remote add heroku-client https://git.heroku.com/name-generator-client-MNT.git
+	
+5. add and commit the code
+	git add .
+	git commit -m "first commit"
+	
+Because you are using two different repositories in your project, 
+you need to push your changes using the subtree command. 
+The subtree command allows you to nest one or more repositories inside another as a subdirectory. 
+In short,this command allows you to manage multiple repositories in one; 
+it's commonly used in monorepo projects.
+
+6. git subtree push --prefix backend heroku-backend main
+	git subtree push --prefix client heroku-client main
+	
+7. To see your deployed app, use heroku open with the -a flag to indicate the app that you want to open.
+heroku open -a name-generator-client
+

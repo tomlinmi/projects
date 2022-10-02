@@ -1,0 +1,100 @@
+
+
+import React, { useEffect, useState } from "react";
+import { useParams, useHistory } from "react-router-dom";
+
+
+function UserProfile() {
+  const [user, setUser] = useState({});
+  const { userId } = useParams();
+const  history  = useHistory();
+  useEffect(() => {
+    const abortController = new AbortController();
+    fetch(`https://jsonplaceholder.typicode.com/users/${userId}`, {
+      signal: abortController.signal,
+    })
+      .then((response) => response.json())
+      .then(setUser)
+      .catch((error) => {
+        if (error.name !== "AbortError") {
+          console.error(error);
+        }
+      });
+
+    return () => {
+      abortController.abort(); // cancels any pending request or response
+    };
+  }, [userId]);
+
+  const rows = Object.entries(user).map(([key, value]) => (
+    <div key={key}>
+      <label>{key}</label>: {JSON.stringify(value)}
+      <hr />
+    </div>
+  ));
+
+  const deleteHandler = (event) => {
+    // This will be successful but will not actually delete the user.
+    fetch(
+      `https://jsonplaceholder.typicode.com/users/${userId}`,
+      { method: "DELETE" } // the delete method tells the API to delete the user
+    )
+      .then((response) => response.json())
+    .then(() => history.push("/"))   //delete handler returns to homepage
+      .then((data) => console.log("deleteHandler now fully implemented"));
+  };
+
+  if (user.id) {
+    return (
+      <div>
+        <button type="button" onClick={deleteHandler}>
+          Delete
+        </button>
+        {rows}
+      </div>
+    );
+  }
+  return "Loading...";
+}
+
+export default UserProfile;
+
+
+import React from "react";
+import { Link, Route, Switch } from "react-router-dom";
+import UserProfile from "./UserProfile";
+
+function Home() {
+  return <p>Home</p>;
+}
+
+// No need to change this component
+function App() {
+  return (
+    <div className="App">
+      <div>
+        <Link to="/">Home</Link>
+      </div>
+      {Array(10)
+        .fill(1)
+        .map((one, index) => index + one)
+        .map((id) => (
+          <div key={id}>
+            <Link to={`/user/${id}`}>User {id}</Link>
+          </div>
+        ))}
+      <Switch>
+        <Route exact={true} path="/">
+          <Home />
+        </Route>
+        <Route path="/user/:userId">
+          <UserProfile />
+        </Route>
+      </Switch>
+    </div>
+  );
+}
+
+export default App;
+
+

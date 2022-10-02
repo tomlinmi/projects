@@ -1,0 +1,38 @@
+KNEX CLI commands
+
+
+create a migration file
+npx knex migrate:make [migration_name]
+
+example
+npx knex migrate:make createSuppliersTable
+
+define tables in the exports.up and down
+
+
+run the latest migration manually
+
+npx knex migrate:latest
+
+
+Roll back
+
+npx knex migrate:rollback
+
+
+example migration file to add product price and rename product_name
+
+npx knex migrate:make productsAddPriceAndChangeProductNameToProductTitle
+
+Keep track of migrations completed and pending
+
+npx knex migrate:list
+
+ROLL BACK SPECFIC MIGRATION
+npx knex migrate:down migration_file_name
+
+example
+
+npx knex migrate:down 20220828132202_productsAddPriceAndChangeProductNameToProductTitle.js
+
+

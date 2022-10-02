@@ -1,0 +1,31 @@
+KNEX seed file.  Knex doesn't automatically create timestamps for these files
+Update Knex file to include seeds for dev environment
+
+
+syntax
+npx knex seed:make seed_name
+
+example, run 1 after the other
+
+npx knex seed:make 00-suppliers
+npx knex seed:make 01-products
+npx knex seed:make 02-categories
+npx knex seed:make 03-products_categories
+
+
+the function, creates boilerplate code, replace for each seedfile like the example
+const suppliers = require("../fixtures/suppliers");
+
+exports.seed = function (knex) {
+  return knex
+    .raw("TRUNCATE TABLE suppliers RESTART IDENTITY CASCADE")
+    .then(function () {
+      return knex("suppliers").insert(suppliers);
+    });
+};
+
+RUN seed files
+npx knex seed:run
+
+to seed specific file run
+npx knex seed:run --specific=[seed-filename.js]

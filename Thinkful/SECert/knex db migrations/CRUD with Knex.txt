@@ -1,0 +1,203 @@
+KNEX CRUD
+
+for KNEX to run query, it needs table name and columns
+sql
+SELECT * FROM categories
+knex
+knexInstance("categories").select("*");
+
+knex queries
+sql example 
+SELECT * FROM categories
+WHERE category_id = 2;
+
+knex query
+knexInstance("categories").select("*").where({ category_id: 2 });
+
+ Knex instance methods only build the query, not execute it. 
+ To execute the query, you will need to chain the then() promise method 
+ to end of the Knex query, like this:
+ 
+ knexInstance
+  .from("categories")
+  .select("*")
+  .then((result) => {
+    console.log(result);
+  });
+
+LIST example to return a couple of columns
+function list() {
+  return knex("restaurants").select("restaurant_name", "restaurant_cuisine");
+}
+
+  
+GET Categories Service
+  
+  const knex = require("../db/connection");
+
+function list() {
+  return knex("categories").select("*");
+}
+
+module.exports = {
+  list,
+};
+
+1. create service for the table to perform the query
+example: 
+const knex = require("../db/connection");
+
+function list() {
+  return knex("products").select("*");
+}
+
+function read(productId) {
+  return knex("products").select("*").where({ product_id: productId }).first();
+}
+
+
+module.exports = {
+  list, read,
+};
+
+2. require service in the controller.js and add validation middleware
+
+const productsService = require("./products.service");
+
+function list(req, res, next) {
+  productsService
+    .list()
+    .then((data) => res.json({ data }))
+    .catch(next);
+}
+
+
+function productExists(req, res, next) {
+  productsService
+    .read(req.params.productId)
+    .then((product) => {
+      if (product) {
+        res.locals.product = product;
+        return next();
+      }
+      next({ status: 404, message: `Product cannot be found.` });
+    })
+    .catch(next);
+}
+
+function read(req, res) {
+  const { product: data } = res.locals;
+  res.json({ data });
+}
+
+module.exports = {
+  read: [productExists, read],
+  list: [list],
+  
+3. ADD routes in the router.js
+  
+const router = require("express").Router({ mergeParams: true });
+const controller = require("./products.controller");
+const methodNotAllowed = require("../errors/methodNotAllowed");
+
+router.route("/").get(controller.list).all(methodNotAllowed);
+router.route("/:productId([0-9]+)").get(controller.read).all(methodNotAllowed);
+
+
+module.exports = router;
+
+
+POST to add uses insert method.  he create() function creates a Knex query that inserts a new supplier into the suppliers table while returning all columns from the newly inserted row
+The .insert() method of Knex can be used to insert more than one record, so it returns an array of the records inserted
+
+Require the service at the top of the controller and add validation middleware for the created object (supplier)
+
+Create a new Validation middleware name: hasProperties() that will be used by any controller to validate required fields. 
+Then use hasProperties to define hasRequiredProperties in the controller.
+
+//checks for 2 required fields
+
+const suppliersService = require("./suppliers.service.js");
+const hasProperties = require("../errors/hasProperties");
+const hasRequiredProperties = hasProperties("supplier_name", "supplier_email");
+
+function create(req, res, next) {
+  suppliersService
+    .create(req.body.data)
+    .then((data) => res.status(201).json({ data }))
+    .catch(next);
+}
+
+function update(req, res, next) {
+  const updatedSupplier = {
+    ...req.body.data,
+    supplier_id: res.locals.supplier.supplier_id,
+  };
+  suppliersService
+    .update(updatedSupplier)
+    .then((data) => res.json({ data }))
+    .catch(next);
+}
+
+function destroy(req, res, next) {
+  suppliersService
+    .delete(res.locals.supplier.supplier_id)
+    .then(() => res.sendStatus(204))
+    .catch(next);
+}
+
+
+const VALID_PROPERTIES = [
+  "supplier_name",
+  "supplier_address_line_1",
+  "supplier_address_line_2",
+  "supplier_city",
+  "supplier_state",
+  "supplier_zip",
+  "supplier_phone",
+  "supplier_email",
+  "supplier_notes",
+  "supplier_type_of_goods",
+];
+
+function hasOnlyValidProperties(req, res, next) {
+  const { data = {} } = req.body;
+
+  const invalidFields = Object.keys(data).filter(
+    (field) => !VALID_PROPERTIES.includes(field)
+  );
+
+  if (invalidFields.length) {
+    return next({
+      status: 400,
+      message: `Invalid field(s): ${invalidFields.join(", ")}`,
+    });
+  }
+  next();
+}
+
+//chaining then() to suppliersService.read() will execute the Knex query that you defined previously to retrieve a supplier given based on ID. The query returns a promise, which is handled in the then() function.
+function supplierExists(req, res, next) {
+  suppliersService
+    .read(req.params.supplierId)
+    .then((supplier) => {
+      if (supplier) {
+        res.locals.supplier = supplier;
+        return next();
+      }
+      next({ status: 404, message: `Supplier cannot be found.` });
+    })
+    .catch(next);
+}
+
+module.exports = {
+  create:[hasOnlyValidProperties, hasRequiredProperties, create ],
+  update:[supplierExists, hasOnlyValidProperties, hasRequiredProperties, update],
+  delete: [supplierExists, destroy],
+};
+
+
+PUT to update uses the Knex update() method to update a row in a table
+
+
+

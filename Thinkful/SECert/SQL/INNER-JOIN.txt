@@ -1,0 +1,119 @@
+Joining Tables
+
+Tables that are related by a foreign key can be joined using the basic syntax below:
+
+SELECT <columns>
+FROM <table1>
+  JOIN <table2>
+  ON <related columns>;
+  
+example  Return all the rows from both tables, with primary keys from both tables
+SELECT *
+FROM departments
+  JOIN employees
+  ON departments.manager = employees.employee_id;
+  
+Example:  List the departments at Thinkful Books and their managers, including only selected columns
+
+-- It is also recommended to qualify all column names with the table name;
+-- that is, `employees.salary` rather than just `salary`.
+SELECT
+  departments.department_id,
+  departments.department_name,
+  employees.first_name,
+  employees.last_name,
+  employees.salary
+FROM
+  departments
+  JOIN employees
+  ON departments.manager = employees.employee_id;
+  
+  
+Example  - create alias
+The table alias only exists within the query itself. To create an alias, simply specify the new alias in the FROM clause.
+
+SELECT
+  d.department_id,
+  d.department_name,
+  e.first_name,
+  e.last_name,
+  e.salary
+FROM
+  departments d -- Create alias `d` for the departments table
+  JOIN employees e -- Create alias `e` for the employees table
+  ON d.manager = e.employee_id;
+  
+
+INNER JOIN queries and JOIN are the same
+The default type of JOIN query is the INNER JOIN. This query returns all rows where the two columns in the join condition match.
+
+SELECT
+  d.department_id,
+  d.department_name,
+  e.first_name,
+  e.last_name
+FROM
+  departments d
+  INNER JOIN
+  employees e
+  ON d.manager = e.employee_id;
+  
+example - List the order statuses, order dates, first names, and emails of all Thinkful Books customers
+SELECT
+  c.first_name as customer_name, -- Alias `first_name` as `customer_name`
+  c.email,
+  o.order_status,
+  o.order_date
+FROM
+  customers c
+  INNER JOIN
+  orders o
+  ON c.customer_id = o.customer_id;
+  
+example - List the order dates, first and last names, and phone numbers of Thinkful Books customers with rejected orders
+
+SELECT
+  c.first_name,
+  c.last_name,
+  c.phone,
+  o.order_date
+FROM
+  customers c
+  INNER JOIN
+  orders o
+  ON c.customer_id = o.customer_id
+WHERE
+  o.order_status = 3;
+  
+Example  - Joining 3 tables for many to many relationship
+List the employee's first and last names and the employees' project names
+SELECT
+  e.first_name,
+  e.last_name,
+  p.project_name as project -- Alias the column name as `project` for brevity
+FROM
+  employees e
+  INNER JOIN
+  employees_projects ep
+  ON e.employee_id = ep.employee_id
+  INNER JOIN
+  projects p
+  ON p.project_id = ep.project_id;
+
+Example without alias
+SELECT
+  employees.first_name,
+ employees.last_name,
+ projects.project_name 
+FROM
+  employees 
+  INNER JOIN
+  employees_projects 
+  ON employees.employee_id = employees_projects.employee_id
+  INNER JOIN
+  projects 
+  ON projects.project_id = employees_projects.project_id;
+
+
+
+  

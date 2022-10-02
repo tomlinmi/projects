@@ -1,0 +1,8 @@
+contacts is array of contact objects
+
+
+Function deleteContact(id) {
+  contacts = contacts.filter( (contact) => contact.id != Number(id));
+  
+  render(contacts);
+}

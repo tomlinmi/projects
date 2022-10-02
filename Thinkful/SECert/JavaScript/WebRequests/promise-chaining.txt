@@ -1,0 +1,147 @@
+nesting asynchronous calls , promise chaining
+//get the response from URL, then post new object "leo"
+axios.get(constellationsUrl).then(({ data }) => {
+  console.log(data);
+  axios.post(constellationsUrl, leo).then(({ data }) => console.log(data));
+});
+
+
+======================================================
+//a request is made to check whether or not the constellation 
+//already exists. Then, if it doesn't exist, the code will 
+//then create the new constellation.
+
+axios
+  .get(constellationsUrl)
+  .then(({ data }) => {
+    const exists = data.find(({ name }) => name === leo.name);
+    if (exists) throw `Constellation "${leo.name}" already exists.`;
+    return axios
+      .post(constellationsUrl, leo)
+      .then(({ data }) => console.log(data));
+  })
+  .catch(console.log);
+  
+  ===========================================================
+  //You can clean up this code in a number of ways. In this lesson, you'll learn how to clean
+  it up using return values inside of then() and catch()
+  
+const axios = require("axios");
+const leo = {
+  name: "Leo",
+  meaning: "Lion",
+  starsWithPlanets: 19,
+  quadrant: "NQ2",
+};
+
+const constellationsUrl = "http://localhost:5000/constellations"; 
+  
+  
+  axios
+  .get(constellationsUrl)
+  .then(({ data }) => {
+    return data.find(({ name }) => name === leo.name);
+  })
+  .then((exists) => {
+    if (exists) throw `Constellation "${leo.name}" already exists.`;
+    return axios
+      .post(constellationsUrl, leo)
+      .then(({ data }) => console.log(data));
+  })
+  .catch(console.log);
+  
+  
+  ======================================================
+  
+  
+  
+  // Solution
+const url = `${BASE_URL}/constellations/${id}`;
+  return axios
+    .get(url)
+    .then(() => {
+      return axios.put(url, body)
+    }).then(({ data }) => {
+        return data;
+      })
+    .catch((error) => {
+    return error.message;
+    });
+	
+	
+	==============================================================
+	
+	Promise.reject() returns a promise with a status of rejected. 
+	Whatever is passed in as an argument will be what is accessible in the catch() callback function.
+	
+	With this update, the code would work as intended even if one of the arguments to update() was missing.
+	
+	function update(id, body) {
+  if (!id || !body) return Promise.reject(false);
+  const url = `${BASE_URL}/constellations/${id}`;
+  return axios.put(url, body);
+
+}
+	
+	
+	 similar class method is Promise.resolve(). This method will return a promise with a status of resolved. The argument passed to it will be accessible in the next then() statement.
+
+Promise.resolve({ success: true }).then(console.log);
+//> { success: true }
+
+
+
+=========================================================================
+Promise.all() to resolve an array of promises. use Promise.all() to quickly display data from multiple requests
+
+
+Here is how to access the data property of each result inside that array of response objects:
+
+const axios = require("axios");
+const BASE_URL = "http://localhost:5000";
+
+Promise.all([
+  axios.get(`${BASE_URL}/constellations/UEUrlfX`),
+  axios.get(`${BASE_URL}/constellations/zb8QvVt`),
+  axios.get(`${BASE_URL}/constellations/32TN5F8`),
+]).then((results) => {
+  console.log(results[0].data);
+  console.log(results[1].data);
+  console.log(results[2].data);
+})
+
+
+.catch((error) => {
+    return error.message;
+    });
+
+
+/*
+  { id: 'UEUrlfX', name: 'Columba', ... }
+  { id: 'zb8QvVt', name: 'Crater', ... }
+  { id: '32TN5F8', name: 'Draco', ... }
+*/
+
+Note that the promise returned by Promise.all() will be rejected immediately if any one of the promises passed to Promise.all() is rejected. 
+You can add a catch() call after then() to handle that contingency.
+Note that Promise.allSettled() is an alternative to Promise.all() that always returns the result of each individual promise, including whether the promise was fulfilled or rejected.
+
+==================================================================================================
+const axios = require("../utils/axios");
+const BASE_URL = "http://localhost:5000";
+
+function bulkDelete(ids) {
+  
+   const promises = ids.map((id) => {
+    const url = `${BASE_URL}/constellations/${id}`;
+     axios.delete(url);
+     return {id}
+;  });
+
+  return Promise.all(promises);
+}
+  //The bulkDelete() method should take an array of IDs, which could be either strings or numbers. Then, an equal number of requests should be made to the URL above, replacing :id with the given ID.
+
+The return value should be an array of objects, where the only key in that object is an id. You will need to construct this object on your own; it is not what is returned from the Constellations server.
+
+

@@ -1,0 +1,43 @@
+const axios = require("../utils/axios");
+const BASE_URL = "http://localhost:5000";
+
+function isValid({ id, name, meaning, quadrant, starsWithPlanets }) {
+  return id && name && meaning && quadrant && starsWithPlanets;
+}
+
+//This function should take in a constellation object that includes an id. It should then return a PUT request with axios to update that resource with the new content
+const constellation = {
+  id: "HwLvy2S",
+  name: "Ursa Minor",
+  meaning: "Little Bear",
+  starsWithPlanets: 6,
+  quadrant: "NQ3",
+};
+
+async function update(constellation) {
+  const id = constellation.id
+ const constellationURL = `${BASE_URL}/constellations/${id}`;
+  try{
+  return  await axios.put(constellationURL, constellation)
+    
+  } catch (error){
+    throw `Updating constellation (id:"${id}") failed.`;
+  }
+  
+}
+
+
+//check is the constellation variable an array, if not array, return error. check all constellation is constellation
+async function bulkImport(constellations) {
+  if(!Array.isArray(constellations)) 
+    return Promise.reject({error: "Inputted augument must be an array"})
+  const result = constellations.every((constellation)=> isValid(constellation))
+  if(!result) return Promise.reject({error:"All constellations must include relevant fields." })
+const newResult = constellations.map((constellation)=>update(constellation))
+return Promise.allSettled(newResult)
+}
+ 
+
+
+
+module.exports = { bulkImport, update };

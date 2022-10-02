@@ -1,0 +1,46 @@
+Example Function,given name return score
+
+
+function findStudentScoreByName(students, name) {
+  let result = null
+  students.find(student => {
+    if(student.name === name)
+      result = student.score
+  })
+  return result
+}
+
+module.exports = findStudentScoreByName;
+
+
+
+
+Example solution.test.js file
+
+const expect = require("chai").expect;
+const findStudentScoreByName = require("../src/solution.js");
+
+describe("findStudentScoreByName", () => {
+    it("should return the student score based on input name", () => {
+      const students = [
+        { name: "Leo Yeon-Joo", score: 8.9 },
+        { name: "Morgan Sutton", score: 7.4 },
+        { name: "Natalee Vargas", score: 9.2 },
+      ];
+      
+      expect(findStudentScoreByName(students, "Leo Yeon-Joo")).to.equal(8.9);
+     expect(findStudentScoreByName(students, "Morgan Sutton")).to.equal(7.4);
+    expect(findStudentScoreByName(students, "Natalee Vargas")).to.equal(9.2);
+  })
+
+it("Should return null if the name entered is not in the students", () => {
+    const students = [
+  { name: "Leo Yeon-Joo", score: 8.9 },
+  { name: "Morgan Sutton", score: 7.4 },
+  { name: "Natalee Vargas", score: 9.2 },
+];
+    expect(findStudentScoreByName(students, " " )).to.equal(null);
+
+      
+          });
+});

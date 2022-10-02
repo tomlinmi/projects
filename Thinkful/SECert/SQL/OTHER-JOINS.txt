@@ -1,0 +1,53 @@
+LEFT JOIN
+A LEFT JOIN brings back all rows on the left side of a join, even if it doesn't match any rows on the right.
+If no matches are found, the right-side columns are returned with NULL values.
+
+Example
+List all department names at Thinkful Books and their corresponding managers
+
+SELECT
+  d.department_id AS id,
+  d.department_name AS department,
+  e.first_name AS manager_first_name,
+  e.last_name AS manager_last_name
+FROM
+  departments d
+  LEFT JOIN -- Specify `LEFT JOIN` here
+  employees e
+  ON d.manager = e.employee_id;
+
+Right Join
+  
+List all Thinkful Books employee names and the name of the department that they manage
+List all employee regardless of whether they manage a department
+RIGHT JOIN is the same as changing the order of the tables listed in a LEFT JOIN.
+
+SELECT
+  e.first_name AS manager_first_name,
+  e.last_name AS manager_last_name,
+  d.department_id AS id,
+  d.department_name AS department
+FROM
+  departments d
+  RIGHT JOIN -- Specify `RIGHT JOIN` as the clause
+  employees e
+  ON d.manager = e.employee_id;
+  
+FULL JOIN
+  
+  The FULL JOIN keyword returns all rows when there is a match in the left table (the departments table in this case) or right table (the employees table in this case) records.
+  
+  List all departments and all employees at Thinkful Books
+  
+  SELECT
+  d.department_id AS id,
+  d.department_name AS department,
+  e.first_name,
+  e.last_name
+FROM
+  departments d
+  FULL JOIN -- Specify `FULL JOIN` here
+  employees e
+  on d.manager = e.employee_id;
+  
+  

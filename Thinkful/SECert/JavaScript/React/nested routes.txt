@@ -1,0 +1,203 @@
+import React from "react";
+import { Link } from "react-router-dom";
+
+export const Users = ({ users = [] }) => {
+  const rows = users.map((user) => (
+    <tr key={user.id}>
+      <td>{user.id}</td>
+      <td>{user.username}</td>
+      <td>{user.name}</td>
+      <td>{user.email}</td>
+      <td>
+        <Link to={`/users/${user.id}`}>View -></Link>
+      </td>
+    </tr>
+  ));
+
+  return (
+    <section>
+      <h2>Users</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>User Name</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>View</th>
+          </tr>
+        </thead>
+        <tbody>{rows}</tbody>
+      </table>
+    </section>
+  );
+};
+
+export default Users;
+
+
+import React from "react";
+
+export const UserProfile = ({ user = {} }) => {
+  return (
+    <div>
+      <div>
+        <div>
+          <label>User Name</label>
+        </div>
+        <div>{user.username}</div>
+      </div>
+      <hr />
+      <div>
+        <div>
+          <label>EMail</label>
+        </div>
+        <div>{user.email}</div>
+      </div>
+      <hr />
+      <div>
+        <div>
+          <label>Phone</label>
+        </div>
+        <div>{user.phone}</div>
+      </div>
+      <hr />
+      <div>
+        <div>
+          <label>Company</label>
+        </div>
+        <div>{(user.company || {}).name}</div>
+      </div>
+      <hr />
+      <div>
+        <div>
+          <label>Website</label>
+        </div>
+        <div>{user.website}</div>
+      </div>
+      <hr />
+    </div>
+  );
+};
+
+export default UserProfile;
+
+
+import React from "react";
+import { Link, Route, Switch, useRouteMatch } from "react-router-dom";
+import UserPost from "./UserPost";
+
+export const UserPosts = ({ posts = [] }) => {
+  const { url } = useRouteMatch();
+
+  const postLinks = posts.map((post) => (
+    <li key={post.id}>
+      <Link to={`${url}/${post.id}`} data-testid={`user-post-${post.id}`}>
+        {post.title}
+      </Link>
+    </li>
+  ));
+
+  return (
+    <div>
+      <ul>{postLinks}</ul>
+      <div>
+        {/* TODO: Display <UserPost /> if there is a :postId in the url, otherwise display "No post selected..." */}
+        <Switch>
+        <Route path={`${url}/posts`}>
+        </Route>
+        <Route>
+          <h1> No post selected...</h1>
+          </Route>
+        </Switch>
+      </div>
+    </div>
+  );
+};
+
+export default UserPosts;
+
+
+
+import React from "react";
+import {
+  Link,
+  NavLink,
+  Route,
+  Switch,
+  useParams,
+  useRouteMatch,
+} from "react-router-dom";
+import UserPosts from "./UserPosts";
+import UserProfile from "./UserProfile";
+
+export const User = ({ users = [] }) => {
+  const { userId } = useParams();
+    const { url } = useRouteMatch();
+  
+  if (!userId) {
+    throw new Error("No URL parameter for userId");
+  }
+
+  const user = users.find((user) => `${user.id}` === userId);
+
+
+  if (user) {
+    return (
+      <section>
+        <Link to="/"> &lt;- Users</Link>
+        <div>
+          <h2>{user.name}</h2>
+          <ul>
+            <li>
+              <NavLink to={`${url}`} data-testid="user-profile">
+                Profile
+              </NavLink>
+            </li>
+            <li>
+              <NavLink to={`${url}/posts`} data-testid="user-posts">
+                Posts
+              </NavLink>
+            </li>
+          </ul>
+         <Switch> 
+           <Route path={`${url}/posts`}> 
+             <UserPosts posts={user.posts}/> 
+           </Route>
+          <Route path={url}> 
+            <UserProfile user={user}/> 
+           </Route> </Switch>
+        </div>
+      </section>
+    );
+  }
+  return <p>User not found</p>;
+};
+
+export default User;
+
+import React from "react";
+import { Route } from "react-router-dom";
+import Users from "./Users";
+import users from "./data.json";
+import User from "./User";
+
+function App() {
+  return (
+    <div className="App">
+      <Route exact={true} path="/">
+        <Users users={users} />
+      </Route>
+      <Route path="/users/:userId">
+        <User users={users} />
+      </Route>
+    </div>
+  );
+}
+
+export default App;
+
+
+
+
+

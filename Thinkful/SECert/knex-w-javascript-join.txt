@@ -1,0 +1,84 @@
+create queries in Knex to pull data from more than one table
+
+JOIN Tables to get info across multiple tables
+
+Example in SQL
+
+SELECT p.*, s.*
+FROM products as p
+JOIN suppliers as s
+ON p.supplier_id = s.supplier_id;
+
+Example in knex - The join() method above accepts the name of the join table as the first parameter. The next two parameters are the names of the columns that contain the values on which the join is based
+
+knex("products as p")
+  .join("suppliers as s", "p.supplier_id", "s.supplier_id")
+  .select("p.*", "s.*");
+  
+  
+ link multiple table by chaining join() methods.   
+ 
+ knex("products as p")
+  .join("products_categories as pc", "p.product_id", "pc.product_id")
+  .join("categories as c", "pc.category_id", "c.category_id");
+  
+  http://localhost:5000/products/6 
+  produces, flat data
+  
+  {
+"data": {
+"product_id": 6,
+"product_sku": "B9qYVKe5rE",
+"product_title": "Grand Hypothesis on the History of the Dwarfs",
+"product_description": "Learn about the history of dwarfs.",
+"product_quantity_in_stock": 50,
+"product_weight_in_lbs": "0.80",
+"supplier_id": 2,
+"created_at": "2022-08-28T14:00:40.686Z",
+"updated_at": "2022-08-28T14:00:40.686Z",
+"product_price": "15.99",
+"category_id": 7,
+"category_name": "books",
+"category_description": "A category for books, excluding electronic books."
+}
+}
+
+write a function to group the category_id, category_name, and category_description columns into a single nested object:
+
+create src/utils folder and add file name map-properties with the following code:
+const lodash = require("lodash");
+
+function mapProperties(configuration) {
+  return (data) => {
+    if (data) {
+      return Object.entries(data).reduce((accumulator, [key, value]) => {
+        return lodash.set(accumulator, configuration[key] || key, value);
+      }, {});
+    }
+    return data;
+  };
+}
+
+module.exports = mapProperties;
+
+
+Then make update to the product service to mapProperties as needed. 
+
+const mapProperties = require("../utils/map-properties");
+
+const addCategory = mapProperties({
+category_id: "category.category_id",
+category_name: "category.category_name",
+category_description: "category.category_description",
+});
+
+Another approach is in the service - data map-properties
+
+example:  See 39.9 assessment
+ let data = await service.listAverageRatingByOwner();
+ data = data.map((ownerAvg) => ({ ...ownerAvg, avg: Number(ownerAvg.avg) })); res.json({ data }); }
+
+
+
+
+

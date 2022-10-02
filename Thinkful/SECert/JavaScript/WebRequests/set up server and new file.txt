@@ -1,0 +1,16 @@
+Set up new program to run against the constellation server and run with axios
+Make sure constellation server is up and running
+1. go to server folder
+2. npm install
+3. npm start
+
+Set up new  program package
+1. create new directory  mkdir
+in new directory
+2. touch file.js
+3. npm init -y
+4. npm i axios
+
+
+To Stop npm server, in server watching window
+ctrl + c

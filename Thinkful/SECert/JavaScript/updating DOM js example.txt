@@ -1,0 +1,61 @@
+import "./styles.css";
+
+/**
+  Write the addheadings() function here
+  
+  //Update all articles so they contain h2 headings. For example, the <article>Article 1</article> should become <article><h2>Article 1</h2></article>
+*/
+
+const articles = document.querySelectorAll("article"); 
+
+function addHeadings(){ 
+  for(let article of articles.values()){ 
+    const newEle = document.createElement("h2"); 
+    newEle.innerText = article.innerText; 
+    article.innerText = ''; 
+    article.appendChild(newEle); } 
+}
+
+
+/**
+  Write the styleTutorialsAndArticles() function here
+  
+  //For all article elements on the HTML, add a class. If the article contain the word "Tutorial," add the class tutorial. Otherwise, add the class article. For example, this HTML:
+  
+*/
+
+ function styleTutorialsAndArticles(){ 
+     for(let article of articles.values()){ 
+     if(article.innerText.includes('Article')) 
+       article.classList.add('article'); 
+     if(article.innerText.includes('Tutorial')) 
+       article.classList.add('tutorial'); 
+   } 
+ }
+  
+/**
+  Write the separateAllTutorials() function here
+  
+    //Create a new section element with the class tutorials and add the tutorials to that new section. The new section should be appended to the div with class container. If there are no tutorials, then don't create the new section. Remove all tutorials from the set of articles in the section with the class articles.
+  
+*/
+function separateAllTutorials(){ 
+  const tutorials = document.createElement('section'); 
+  tutorials.classList.add('tutorials'); 
+  for(let article of articles.values()){ 
+    if(article.innerText.includes('Tutorial')){ 
+      tutorials.appendChild(article); } 
+  } 
+  const appendDiv = document.querySelector('div.container'); 
+  appendDiv.appendChild(tutorials); 
+}
+/**
+  No need to edit the following
+*/
+function main() {
+  addHeadings();
+  styleTutorialsAndArticles();
+  separateAllTutorials();
+}
+
+main();

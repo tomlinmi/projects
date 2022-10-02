@@ -16,7 +16,7 @@ const parks = [
     },
   ];
 
-  function squareKmTotal(parks) {
+ /* function squareKmTotal(parks) {
     //Add up all of the areaInSquareKm values from each park object.
    // parks.reduce()
     let result = parks.reduce((total, park)=>total + park.areaInSquareKm, 0);
@@ -24,5 +24,6 @@ const parks = [
     return result; 
   
   }
-console.log(squareKmTotal(parks));
+squareKmTotal(parks);
+*/
 
