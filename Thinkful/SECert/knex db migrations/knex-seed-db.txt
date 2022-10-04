@@ -1,7 +1,7 @@
 KNEX seed file.  Knex doesn't automatically create timestamps for these files
 Update Knex file to include seeds for dev environment
 
-
+Seedfiles may be create for you, in case skip to run seed files
 syntax
 npx knex seed:make seed_name
 
@@ -29,3 +29,15 @@ npx knex seed:run
 
 to seed specific file run
 npx knex seed:run --specific=[seed-filename.js]
+
+
+If there is an issue with the migration tables.  migrate down to roll back and migrate up to update Beaver
+
+
+npx knex migrate: down migration_file_name
+example:  npx knex migrate:down 20221002191102_createReviewsTable.js
+
+after change
+
+npx knex migrate:up 20221002191102_createReviewsTable.js
+

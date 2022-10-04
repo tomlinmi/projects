@@ -8,19 +8,21 @@ router
   .all(methodNotAllowed);
 
 router
-  .route("/:movieId([0-9]+)")
+  .route("/:movieId")
   .get(controller.read)
   .all(methodNotAllowed);
 
+
+
 router
   .route("/:movieId/theaters")
-  .get(controller.listTheaters)
+  .get(controller.theatersList)
   .all(methodNotAllowed);
 
 
   router
   .route("/:movieId/reviews")
-  .get(controller.listReviews)
+  .get(controller.reviewsList)
   .all(methodNotAllowed);
 
 
